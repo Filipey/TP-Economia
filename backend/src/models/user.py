@@ -12,4 +12,4 @@ class UserModel(Base):
   email = Column(String, unique=True, index=True)
   hash_password = Column(String)
 
-  items = relationship("Item", back_populates="owner")
+  items = relationship("ItemModel", back_populates="owner")
