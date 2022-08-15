@@ -1,5 +1,8 @@
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
+from routes.api import router as api_router
 
 app = FastAPI() # python -m uvicorn main:app --reload
 app.add_middleware(
@@ -10,7 +13,8 @@ app.add_middleware(
   allow_headers=["*"]
 )
 
+app.include_router(api_router)
 
-@app.get('/api/v1/')
-async def root():
-  return { "message": "Hello World from FastAPI" }
+if __name__ == '__main__':
+  uvicorn.run("main:app", host='127.0.0.1', port=8000, log_level="info", reload=True)
+  print("Server running")
