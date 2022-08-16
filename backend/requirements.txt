@@ -1,4 +1,0 @@
-fastapi
-uvicorn
-db-sqlite3
-sqlalchemy
