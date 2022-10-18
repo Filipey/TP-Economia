@@ -2,13 +2,7 @@ import { Dashboard } from '@material-ui/icons'
 import InventoryIcon from '@mui/icons-material/Inventory'
 import StackedLineChartIcon from '@mui/icons-material/StackedLineChart'
 import TimelineIcon from '@mui/icons-material/Timeline'
-import {
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText
-} from '@mui/material'
+import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 interface MyListItemProps {
@@ -22,12 +16,10 @@ function MyListItem({ icon, url, iconText }: MyListItemProps) {
   const handleNavigate = () => navigate(url)
 
   return (
-    <ListItem onClick={handleNavigate}>
-      <ListItemButton>
-        <ListItemIcon>{icon}</ListItemIcon>
-        <ListItemText primary={iconText} />
-      </ListItemButton>
-    </ListItem>
+    <ListItemButton onClick={handleNavigate}>
+      <ListItemIcon>{icon}</ListItemIcon>
+      <ListItemText primary={iconText} />
+    </ListItemButton>
   )
 }
 

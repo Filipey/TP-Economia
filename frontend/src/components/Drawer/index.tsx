@@ -1,8 +1,7 @@
 import { ChevronLeft } from '@material-ui/icons'
-import { Avatar, Divider, IconButton, styled, Toolbar } from '@mui/material'
+import { Divider, IconButton, styled, Toolbar } from '@mui/material'
 import MuiDrawer from '@mui/material/Drawer'
 
-import icon from '../../img/bus-avatar.png'
 import { DrawerListItem } from './ListItem'
 
 interface DrawerProps {
@@ -47,11 +46,10 @@ export function Drawer({ open, toggleDrawer }: DrawerProps) {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
+          justifyContent: 'flex-end',
           px: [1]
         }}
       >
-        <Avatar sx={{ ml: '20px', width: '60px', height: '60px' }} src={icon} />
         <IconButton onClick={toggleDrawer}>
           <ChevronLeft />
         </IconButton>

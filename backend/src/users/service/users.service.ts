@@ -25,7 +25,7 @@ export class UsersService {
   }
 
   async authUser(dto: SignInUserDTO) {
-    const authUser = await this.userRepository.query(
+    const authUser: User = await this.userRepository.query(
       `SELECT g.cpf, g.nome, g.telefone, g.email FROM gerente g, login l WHERE g.cpf = '${dto.cpf}' AND l.cpf = '${dto.cpf}' AND l.senha = '${dto.password}' `,
     );
     return authUser;
