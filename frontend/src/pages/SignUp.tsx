@@ -1,12 +1,41 @@
 import { Button, Grid, Link, TextField } from '@mui/material'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AsideFormContainer } from '../components/AsideFormContainer'
+import { WarningField } from '../components/WarningField'
+import { AuthService } from '../services/http/AuthService'
 
 export function SignUp() {
+  const [cpf, setCpf] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [telephone, setTelephone] = useState('')
+  const [password, setPassword] = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [error, setError] = useState(false)
+  const [success, setSuccess] = useState(false)
+
   const navigate = useNavigate()
 
+  const validateFields =
+    cpf !== '' &&
+    name !== '' &&
+    email !== '' &&
+    telephone !== '' &&
+    password !== '' &&
+    passwordConfirm !== '' &&
+    password === passwordConfirm
+
   const handleSubmit = () => {
-    console.log('submit')
+    validateFields
+      ? AuthService.createUser({
+          cpf,
+          name,
+          email,
+          telephone,
+          password
+        }).then(res => (res.status === 201 ? setSuccess(true) : setError(true)))
+      : setError(true)
   }
 
   return (
@@ -17,10 +46,12 @@ export function SignUp() {
             margin="normal"
             fullWidth
             required
-            id="name"
-            label="Nome"
-            name="name"
-            autoComplete="name"
+            id="CPF"
+            label="CPF"
+            name="CPF"
+            autoComplete="cpf"
+            defaultValue={cpf}
+            onChange={e => setCpf(e.target.value)}
             autoFocus
           />
         </Grid>
@@ -29,10 +60,12 @@ export function SignUp() {
             fullWidth
             margin="normal"
             required
-            name="surname"
-            label="Sobrenome"
+            name="name"
+            label="Nome"
             type="name"
-            id="surname"
+            defaultValue={name}
+            onChange={e => setName(e.target.value)}
+            id="name"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -43,6 +76,8 @@ export function SignUp() {
             name="email"
             label="Email"
             type="email"
+            defaultValue={email}
+            onChange={e => setEmail(e.target.value)}
             id="email"
           />
         </Grid>
@@ -54,6 +89,8 @@ export function SignUp() {
             name="telephone"
             label="Telefone"
             type="tel"
+            defaultValue={telephone}
+            onChange={e => setTelephone(e.target.value)}
             id="tel"
           />
         </Grid>
@@ -64,6 +101,8 @@ export function SignUp() {
             name="password"
             label="Senha"
             type="password"
+            defaultValue={password}
+            onChange={e => setPassword(e.target.value)}
             id="password"
           />
         </Grid>
@@ -74,6 +113,8 @@ export function SignUp() {
             name="password-confirm"
             label="Confirme sua Senha"
             type="password"
+            defaultValue={passwordConfirm}
+            onChange={e => setPasswordConfirm(e.target.value)}
             id="password-confirm"
           />
         </Grid>
@@ -89,13 +130,29 @@ export function SignUp() {
       <Grid container>
         <Grid item>
           <Link
-            sx={{ cursor: 'pointer', textDecoration: 'none' }}
+            sx={{ cursor: 'pointer', textDecoration: 'none', color: 'black' }}
             onClick={() => navigate('/')}
           >
             Já possui uma conta? Entre aqui
           </Link>
         </Grid>
       </Grid>
+      <>
+        {success && !error && (
+          <WarningField
+            title="Usuário criado com sucesso!"
+            message="Volte para a tela de Login para acessar o Alligator!"
+            severity="success"
+          />
+        )}
+        {error && !success && (
+          <WarningField
+            title="Entrada de dados inválidas!"
+            message="Verifique novamente os dados digitados"
+            severity="error"
+          />
+        )}
+      </>
     </AsideFormContainer>
   )
 }

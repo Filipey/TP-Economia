@@ -1,8 +1,10 @@
-import { SignInUserDTO } from '../../schemas/DTO'
+import { SignInUserDTO, SignUpUserDTO } from '../../schemas/DTO'
 import { User } from '../../schemas/Models'
 import { api } from '../api'
 
 const authUser = (userDto: SignInUserDTO) =>
   api.post<User>('/users/login', userDto)
 
-export const AuthService = { authUser }
+const createUser = (dto: SignUpUserDTO) => api.post('/users/create', dto)
+
+export const AuthService = { authUser, createUser }

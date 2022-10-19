@@ -1,7 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ProductMonitoringResponseDTO } from 'src/models/dtos/ProductMonitoringResponseDTO';
 import { SignInUserDTO } from 'src/models/dtos/SignInUserDTO';
+import { SignUpUserDTO } from 'src/models/dtos/SignUpUserDTO';
+import { Product } from 'src/models/entities/Product';
 import { User } from 'src/models/entities/User';
 import { Repository } from 'typeorm';
 
@@ -11,12 +14,12 @@ export class UsersService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  createUser(dto: SignInUserDTO) {
-    const newUser = this.userRepository.create(dto);
-    this.userRepository.query(
-      `INSERT INTO login(cpf, senha) VALUES('${dto.cpf}', '${dto.password}')`,
-    );
-    return this.userRepository.save(newUser);
+  createUser(dto: SignUpUserDTO) {
+    const saveLoginQuery = `INSERT INTO login(cpf, senha) VALUES ('${dto.cpf}', '${dto.password}')`;
+    const saveEnitityQuery = `INSERT INTO gerente(cpf, nome, telefone, email) VALUES ('${dto.cpf}', '${dto.name}', '${dto.telephone}', '${dto.email}')`;
+
+    this.userRepository.query(saveEnitityQuery);
+    return this.userRepository.query(saveLoginQuery);
   }
 
   async findByCpf(cpf: string) {
@@ -29,5 +32,19 @@ export class UsersService {
       `SELECT g.cpf, g.nome, g.telefone, g.email FROM gerente g, login l WHERE g.cpf = '${dto.cpf}' AND l.cpf = '${dto.cpf}' AND l.senha = '${dto.password}' `,
     );
     return authUser;
+  }
+
+  async getUserProducts(cpf: string) {
+    const query = `SELECT p.id, p.nome, p.marca, p.valor, p.estoque FROM produto p, cadastra c WHERE (c.id_produto, cpf_gerente) = (p.id, ${cpf})`;
+    const products: Product[] = await this.userRepository.query(query);
+    return products;
+  }
+
+  async getUserMonitoringProducts(cpf: string) {
+    const query = `SELECT p.id, p.nome, p.marca, p.valor, p.estoque, m.data_inicio, m.data_termino, m.expectativa_vendas, m.vendas_realizadas FROM produto p, monitora m WHERE (m.id_produto, cpf_gerente) = (p.id, '${cpf}')`;
+    const products: ProductMonitoringResponseDTO =
+      await this.userRepository.query(query);
+
+    return products;
   }
 }
