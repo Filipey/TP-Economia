@@ -15,3 +15,15 @@ export interface ProductDTO {
   value: number
   inventory: number
 }
+
+export interface ProductMonitoringResponseDTO {
+  id: number
+  name: string
+  brand: string
+  value: number
+  inventory: number
+  initialDate: Date
+  finishDate: Date
+  sellingsGoal: number
+  actualSellings: number
+}

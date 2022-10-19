@@ -25,6 +25,21 @@ export class UsersController {
     return this.userService.getUserMonitoringProducts(cpf);
   }
 
+  @Get('/monitoring/products/count/:cpf')
+  countUserMonitoringProducts(@Param('cpf') cpf: string) {
+    return this.userService.countUserMonitoringProducts(cpf);
+  }
+
+  @Get('/products/:cpf')
+  getUserProducts(@Param('cpf') cpf: string) {
+    return this.userService.getUserProducts(cpf);
+  }
+
+  @Get('/products/count/:cpf')
+  countUserProducts(@Param('cpf') cpf: string) {
+    return this.userService.countUserProducts(cpf);
+  }
+
   @Post('/create')
   @UsePipes(ValidationPipe)
   createUser(@Body() dto: SignUpUserDTO) {

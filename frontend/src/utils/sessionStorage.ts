@@ -4,7 +4,7 @@ export function setUser(user: User) {
   window.sessionStorage.setItem('USER', JSON.stringify(user))
 }
 
-export function getUser() {
+export function getUser(): User {
   return JSON.parse(window.sessionStorage.getItem('USER')!)
 }
 

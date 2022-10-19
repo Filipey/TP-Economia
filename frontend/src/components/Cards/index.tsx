@@ -1,12 +1,33 @@
-import { Inventory } from '@mui/icons-material'
+import { Inventory, StackedLineChart, Timeline } from '@mui/icons-material'
 import { Container, Grid } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { UserService } from '../../services/http/UserService'
+import { getUser } from '../../utils/sessionStorage'
 import { Card } from './CardModel'
 
 export function Cards() {
   const navigate = useNavigate()
+  const [products, setProducts] = useState(0)
+  const [monitoringProducts, setMonitoringProducts] = useState(0)
+  const user = getUser()
+
+  function fetchData() {
+    UserService.countUserProducts(user.cpf).then(res =>
+      setProducts(res.data.count)
+    )
+    UserService.countUserMonitoringProducts(user.cpf).then(res =>
+      setMonitoringProducts(res.data.count)
+    )
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   const handleClickProducts = () => navigate('/dashboard/products')
+  const handleClickMonitoringProducts = () => navigate('/dashboard/monitoring')
+  const handleClickCharts = () => navigate('/dashboard/charts')
 
   return (
     <Container
@@ -17,33 +38,30 @@ export function Cards() {
           <Card
             title="Produtos"
             icon={<Inventory />}
-            isUpper
-            value="300"
+            value={products.toString()}
             iconColor="gold"
-            details="Teste"
+            details="Cadastrados"
             onClick={handleClickProducts}
           />
         </Grid>
         <Grid item style={{ width: '33.3%' }}>
           <Card
-            title="Produtos"
-            icon={<Inventory />}
-            isUpper
-            value="300"
-            iconColor="gold"
-            details="Teste"
-            onClick={handleClickProducts}
+            title="Monitoramentos"
+            icon={<StackedLineChart />}
+            value={monitoringProducts.toString()}
+            iconColor="gray"
+            details="Monitorados"
+            onClick={handleClickMonitoringProducts}
           />
         </Grid>
         <Grid item style={{ width: '33.3%' }}>
           <Card
-            title="Produtos"
-            icon={<Inventory />}
-            isUpper
-            value="300"
-            iconColor="gold"
-            details="Teste"
-            onClick={handleClickProducts}
+            title="Gráficos"
+            icon={<Timeline />}
+            value="5"
+            iconColor="orange"
+            details="Disponíveis"
+            onClick={handleClickCharts}
           />
         </Grid>
       </Grid>

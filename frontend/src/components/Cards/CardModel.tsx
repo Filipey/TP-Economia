@@ -1,4 +1,3 @@
-import { ArrowDownward, ArrowUpward } from '@material-ui/icons'
 import {
   Avatar,
   Box,
@@ -14,7 +13,6 @@ interface CardProps {
   value: string
   icon: JSX.Element
   iconColor: string
-  isUpper: boolean
   details: string
   onClick(): void
 }
@@ -24,7 +22,6 @@ export function Card({
   value,
   icon,
   iconColor,
-  isUpper,
   details,
   onClick
 }: CardProps) {
@@ -56,16 +53,7 @@ export function Card({
               alignItems: 'center'
             }}
           >
-            {isUpper ? (
-              <ArrowUpward htmlColor="#2e7d32" />
-            ) : (
-              <ArrowDownward color="error" />
-            )}
-            <Typography
-              variant="body2"
-              sx={{ mr: 1 }}
-              color={isUpper ? 'green' : 'red'}
-            >
+            <Typography variant="body2" sx={{ mr: 1 }} color="black">
               {details}
             </Typography>
           </Box>
