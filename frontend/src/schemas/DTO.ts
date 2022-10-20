@@ -16,6 +16,14 @@ export interface ProductDTO {
   inventory: number
 }
 
+export interface ProductResponseDTO {
+  id: number
+  nome: string
+  marca: string
+  valor: number
+  estoque: number
+}
+
 export interface ProductMonitoringResponseDTO {
   id: number
   name: string

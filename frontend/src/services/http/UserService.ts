@@ -1,11 +1,14 @@
-import { ProductMonitoringResponseDTO } from '../../schemas/DTO'
-import { Product, User } from '../../schemas/Models'
+import {
+  ProductMonitoringResponseDTO,
+  ProductResponseDTO
+} from '../../schemas/DTO'
+import { User } from '../../schemas/Models'
 import { api } from '../api'
 
 const getUserByCpf = (cpf: string) => api.get<User>(`/users/id/${cpf}`)
 
 const getUserProducts = (cpf: string) =>
-  api.get<Product[]>(`/users/products/${cpf}`)
+  api.get<ProductResponseDTO[]>(`/users/products/${cpf}`)
 
 const countUserProducts = (cpf: string) =>
   api.get(`/users/products/count/${cpf}`)
