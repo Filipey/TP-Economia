@@ -5,7 +5,7 @@ import { api } from '../api'
 const getProductById = (id: number) => api.get<Product>(`/products/id/${id}`)
 
 const getUserLastProducts = (userCpf: string) =>
-  api.get<Product[]>(`/products/user/${userCpf}`)
+  api.get<ProductResponseDTO[]>(`/products/user/${userCpf}`)
 
 const getProductsChartHomeData = (userCpf: string) =>
   api.get<ProductResponseDTO[]>(`/products/user/${userCpf}/charts/home`)

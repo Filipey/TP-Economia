@@ -34,7 +34,7 @@ export function DrawerListItem() {
       />
       <MyListItem
         icon={<InventoryIcon />}
-        url="/products"
+        url="/dashboard/products"
         iconText="Produtos"
       />
       <MyListItem
