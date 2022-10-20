@@ -15,9 +15,15 @@ export class ProductsService {
     return await this.productRepository.findOneBy({ id: productID });
   }
 
-  createProduct(userCpf: string, product: ProductDTO) {
+  async createProduct(userCpf: string, product: ProductDTO) {
     const createProductQuery = `INSERT INTO produto(nome, marca, valor, estoque) VALUES ('${product.name}', '${product.brand}', ${product.value}, ${product.inventory});`;
-    const registerOwnerQuery = `INSERT INTO cadastra(SELECT currval(pg_get_serial_sequence('produto', 'id')), '${userCpf}')`;
+    const productIdQuery = `SELECT MAX(id) FROM produto`;
+
+    const [{ max }] = await this.productRepository.query(productIdQuery);
+    console.log(max);
+    const registerOwnerQuery = `INSERT INTO cadastra(id_produto, cpf_gerente) VALUES(${
+      max + 1
+    }, '${userCpf}')`;
 
     this.productRepository.query(createProductQuery);
     return this.productRepository.query(registerOwnerQuery);

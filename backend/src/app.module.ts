@@ -19,6 +19,7 @@ import { UsersModule } from './users/users.module';
         database: configService.get('DB_NAME'),
         entities: entities,
         synchronize: false,
+        logging: true,
       }),
       inject: [ConfigService],
     }),
