@@ -12,6 +12,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Tooltip,
   Typography,
   useTheme
 } from '@mui/material'
@@ -164,21 +165,27 @@ export function ProductsTable({ mode }: ProductsTableProps) {
                       {formatNumberToLocale(product.estoque)}
                     </TableCell>
                     <TableCell align="center">
-                      <IconButton>
-                        <QueryStats htmlColor="#76BA99" />
-                      </IconButton>
+                      <Tooltip title="Oferta e Demanda">
+                        <IconButton>
+                          <QueryStats htmlColor="#76BA99" />
+                        </IconButton>
+                      </Tooltip>
                     </TableCell>
                     <TableCell align="center">
-                      <IconButton>
-                        <Edit color="info" />
-                      </IconButton>
+                      <Tooltip title="Editar">
+                        <IconButton>
+                          <Edit color="info" />
+                        </IconButton>
+                      </Tooltip>
                     </TableCell>
                     <TableCell align="center">
-                      <IconButton
-                        onClick={() => handleDeleteProduct(product.id)}
-                      >
-                        <Delete color="error" />
-                      </IconButton>
+                      <Tooltip title="Deletar">
+                        <IconButton
+                          onClick={() => handleDeleteProduct(product.id)}
+                        >
+                          <Delete color="error" />
+                        </IconButton>
+                      </Tooltip>
                     </TableCell>
                   </TableRow>
                 ))}
