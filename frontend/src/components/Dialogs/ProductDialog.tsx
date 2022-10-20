@@ -21,6 +21,10 @@ export function ProductDialog({ state, setState }: BasicDialogProps) {
 
   const handleSubmit = () => {
     const user = getUser()
+    if (name === '' || brand === '' || value === 0 || inventory === 0) {
+      setError(true)
+      return
+    }
     ProductService.postNewProdut(user.cpf, {
       name,
       brand,

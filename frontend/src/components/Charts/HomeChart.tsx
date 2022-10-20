@@ -53,8 +53,16 @@ export function HomeChart() {
             <XAxis dataKey="nome" />
             <YAxis dataKey="valor" />
             <Tooltip cursor={{ fill: 'transparent' }} />
-            <Bar dataKey="valor" fill={theme.palette.primary.dark} />
-            <Bar dataKey="estoque" fill={theme.palette.grey[400]} />
+            <Bar
+              name="Valor(R$)"
+              dataKey="valor"
+              fill={theme.palette.primary.dark}
+            />
+            <Bar
+              name="Estoque(und)"
+              dataKey="estoque"
+              fill={theme.palette.grey[400]}
+            />
           </BarChart>
         </ResponsiveContainer>
       </Paper>

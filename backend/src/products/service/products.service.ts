@@ -16,17 +16,9 @@ export class ProductsService {
   }
 
   async createProduct(userCpf: string, product: ProductDTO) {
-    const createProductQuery = `INSERT INTO produto(nome, marca, valor, estoque) VALUES ('${product.name}', '${product.brand}', ${product.value}, ${product.inventory});`;
-    const productIdQuery = `SELECT MAX(id) FROM produto`;
+    const createProductQuery = `INSERT INTO produto(nome, marca, valor, estoque) VALUES ('${product.name}', '${product.brand}', ${product.value}, ${product.inventory}); INSERT INTO cadastra(id_produto, cpf_gerente) VALUES((select * from currval('produto_id_seq')), ${userCpf})`;
 
-    const [{ max }] = await this.productRepository.query(productIdQuery);
-    console.log(max);
-    const registerOwnerQuery = `INSERT INTO cadastra(id_produto, cpf_gerente) VALUES(${
-      max + 1
-    }, '${userCpf}')`;
-
-    this.productRepository.query(createProductQuery);
-    return this.productRepository.query(registerOwnerQuery);
+    return this.productRepository.query(createProductQuery);
   }
 
   updateProduct(productID: number, productUpdated: ProductDTO) {

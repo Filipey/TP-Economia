@@ -1,8 +1,10 @@
+import { Delete, Edit, QueryStats } from '@mui/icons-material'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import {
   Box,
   Button,
   Grid,
+  IconButton,
   Paper,
   Table,
   TableBody,
@@ -24,6 +26,7 @@ import {
 } from '../../utils/formatters'
 import { getUser } from '../../utils/sessionStorage'
 import { ProductDialog } from '../Dialogs/ProductDialog'
+import { MySnackbar } from '../Snackbar'
 import { TableTitle } from './TableTitle'
 
 interface ProductsTableProps {
@@ -37,6 +40,7 @@ export function ProductsTable({ mode }: ProductsTableProps) {
   const [openProductModal, setOpenProductModal] = useState(false)
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(10)
+  const [successDelete, setSuccesDelete] = useState(false)
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null,
@@ -50,6 +54,12 @@ export function ProductsTable({ mode }: ProductsTableProps) {
   ) => {
     setRowsPerPage(parseInt(event.target.value))
     setPage(0)
+  }
+
+  const handleDeleteProduct = (productId: number) => {
+    ProductService.deleteProduct(productId).then(res =>
+      res.status !== 404 ? setSuccesDelete(true) : setSuccesDelete(false)
+    )
   }
 
   function fetchData() {
@@ -66,7 +76,7 @@ export function ProductsTable({ mode }: ProductsTableProps) {
   }, [])
 
   return (
-    <Grid style={{ width: '100%' }} item xs={12}>
+    <Grid style={{ width: '100%', marginTop: 4 }} item xs={12}>
       <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
         {mode === 'home' ? (
           <>
@@ -137,6 +147,9 @@ export function ProductsTable({ mode }: ProductsTableProps) {
                   <TableCell align="center">Marca</TableCell>
                   <TableCell align="center">Valor</TableCell>
                   <TableCell align="center">Estoque</TableCell>
+                  <TableCell align="center">Oferta e Demanda</TableCell>
+                  <TableCell align="center">Editar</TableCell>
+                  <TableCell align="center">Deletar</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -149,6 +162,23 @@ export function ProductsTable({ mode }: ProductsTableProps) {
                     </TableCell>
                     <TableCell align="center">
                       {formatNumberToLocale(product.estoque)}
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton>
+                        <QueryStats htmlColor="#76BA99" />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton>
+                        <Edit color="info" />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton
+                        onClick={() => handleDeleteProduct(product.id)}
+                      >
+                        <Delete color="error" />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -168,6 +198,12 @@ export function ProductsTable({ mode }: ProductsTableProps) {
             <ProductDialog
               state={openProductModal}
               setState={setOpenProductModal}
+            />
+            <MySnackbar
+              open={successDelete}
+              setOpen={setSuccesDelete}
+              message="Produto deletado com sucesso! Recarregue a página"
+              severity="success"
             />
           </TableTitle>
         )}
