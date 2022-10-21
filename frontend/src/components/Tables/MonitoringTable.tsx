@@ -13,6 +13,7 @@ import { ProductMonitoringResponseDTO } from '../../schemas/DTO'
 import { UserService } from '../../services/http/UserService'
 import { formatNumberToLocale } from '../../utils/formatters'
 import { getUser } from '../../utils/sessionStorage'
+import { AnalyticsDialog } from '../Dialogs/AnalyticsDialog'
 import { MonitoringDialog } from '../Dialogs/MonitoringDialog'
 import { MonitoringReportDialog } from '../Dialogs/MonitoringReportDialog'
 import { ReportsHistoryDialog } from '../Dialogs/ReportsHistoryDialog'
@@ -30,6 +31,9 @@ export function MonitoringTable() {
   const [openHistoryModal, setOpenHistoryModal] = useState(
     Array(products.length).fill(false)
   )
+  const [openAnalyticsModal, setOpenAnalyticsModal] = useState(
+    Array(products.length).fill(false)
+  )
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(5)
 
@@ -41,6 +45,11 @@ export function MonitoringTable() {
   const handleOpenHistoryModal = (index: number) =>
     setOpenHistoryModal(
       openReportsModal.map((s, pos) => (pos === index ? true : s))
+    )
+
+  const handleOpenAnalyticsModal = (index: number) =>
+    setOpenAnalyticsModal(
+      openAnalyticsModal.map((s, pos) => (pos === index ? true : s))
     )
 
   function fetchData() {
@@ -58,6 +67,7 @@ export function MonitoringTable() {
     setAtualProducts(products)
     setOpenReportsModal(Array(products.length).fill(false))
     setOpenHistoryModal(Array(products.length).fill(false))
+    setOpenAnalyticsModal(Array(products.length).fill(false))
   }, [products])
 
   const handleChangePage = (
@@ -110,7 +120,9 @@ export function MonitoringTable() {
                       </TableCell>
                       <TableCell align="center">
                         <Tooltip title="Análises">
-                          <IconButton>
+                          <IconButton
+                            onClick={() => handleOpenAnalyticsModal(index)}
+                          >
                             <Insights />
                           </IconButton>
                         </Tooltip>
@@ -145,6 +157,12 @@ export function MonitoringTable() {
                       setState={setOpenHistoryModal}
                       product={product}
                       index={index}
+                    />
+                    <AnalyticsDialog
+                      state={openAnalyticsModal}
+                      setState={setOpenAnalyticsModal}
+                      index={index}
+                      product={product}
                     />
                   </React.Fragment>
                 ))}
