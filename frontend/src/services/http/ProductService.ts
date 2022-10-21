@@ -10,6 +10,12 @@ const getUserLastProducts = (userCpf: string) =>
 const getProductsChartHomeData = (userCpf: string) =>
   api.get<ProductResponseDTO[]>(`/products/user/${userCpf}/charts/home`)
 
+const getProductsLike = (productName: { nome: string }, userCpf: string) =>
+  api.post<ProductResponseDTO[]>(
+    `/products/user/${userCpf}/productsLike`,
+    productName
+  )
+
 const postNewProdut = (userCpf: string, product: ProductDTO) =>
   api.post(`/products/cpf/${userCpf}`, product)
 
@@ -23,6 +29,7 @@ export const ProductService = {
   getProductById,
   getUserLastProducts,
   getProductsChartHomeData,
+  getProductsLike,
   postNewProdut,
   updateProduct,
   deleteProduct

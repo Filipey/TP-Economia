@@ -43,4 +43,12 @@ export class ProductsService {
 
     return products;
   }
+
+  async getProductsLike(productName: { nome: string }, cpfOwner: string) {
+    const query = `SELECT p.id, p.nome, p.marca, p.valor, p.estoque FROM produto p, cadastra c WHERE p.nome LIKE '%${productName.nome}%' AND (c.id_produto, c.cpf_gerente) = (p.id, '${cpfOwner}')`;
+
+    const products: Product[] = await this.productRepository.query(query);
+
+    return products;
+  }
 }

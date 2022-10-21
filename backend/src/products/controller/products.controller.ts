@@ -29,6 +29,14 @@ export class ProductsController {
     return this.productService.getProductsForChart(userCpf);
   }
 
+  @Post('/user/:userCpf/productsLike')
+  getProductsLike(
+    @Body() productName: { nome: string },
+    @Param('userCpf') userCpf: string,
+  ) {
+    return this.productService.getProductsLike(productName, userCpf);
+  }
+
   @Post('/cpf/:userCpf')
   createNewProduct(@Param('userCpf') userCpf: string, @Body() dto: ProductDTO) {
     return this.productService.createProduct(userCpf, dto);

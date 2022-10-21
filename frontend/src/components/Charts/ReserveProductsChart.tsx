@@ -1,0 +1,70 @@
+import { Divider, Grid, Paper, Typography, useTheme } from '@mui/material'
+import { useEffect, useState } from 'react'
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis
+} from 'recharts'
+import { ProductResponseDTO } from '../../schemas/DTO'
+import { ProductService } from '../../services/http/ProductService'
+import { getUser } from '../../utils/sessionStorage'
+
+interface ReserveProductsChartProps {
+  product: ProductResponseDTO
+}
+
+export function ReserveProductsChart({ product }: ReserveProductsChartProps) {
+  const theme = useTheme()
+  const [products, setProducts] = useState<ProductResponseDTO[]>([product])
+
+  function fetchData() {
+    const user = getUser()
+    ProductService.getProductsLike({ nome: product.nome }, user.cpf).then(res =>
+      setProducts(res.data)
+    )
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
+  return (
+    <Grid item style={{ width: '100%' }}>
+      <Paper
+        sx={{
+          p: 2,
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
+        <Typography
+          component="h2"
+          variant="h6"
+          color={theme.palette.info.light}
+          gutterBottom
+          onClick={() => console.log(products)}
+        >
+          {`Evidência: ${product.nome} ${product.marca}`}
+        </Typography>
+        <ResponsiveContainer width="100%" aspect={3}>
+          <BarChart data={products} width={800} height={300}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="marca" />
+            <YAxis dataKey="valor" />
+            <Tooltip cursor={{ fill: 'transparent' }} />
+            <Bar
+              name="Valor(R$)"
+              dataKey="valor"
+              fill={theme.palette.primary.dark}
+            />
+          </BarChart>
+        </ResponsiveContainer>
+      </Paper>
+      <Divider />
+    </Grid>
+  )
+}

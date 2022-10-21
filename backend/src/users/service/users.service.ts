@@ -35,7 +35,7 @@ export class UsersService {
   }
 
   async getUserProducts(cpf: string) {
-    const query = `SELECT p.id, p.nome, p.marca, p.valor, p.estoque FROM produto p, cadastra c WHERE (c.id_produto, cpf_gerente) = (p.id, '${cpf}')`;
+    const query = `SELECT p.id, p.nome, p.marca, p.valor, p.estoque FROM produto p, cadastra c WHERE (c.id_produto, cpf_gerente) = (p.id, '${cpf}') ORDER BY p.nome`;
     const products: Product[] = await this.userRepository.query(query);
     return products;
   }
