@@ -1,6 +1,5 @@
 import { Dashboard } from '@material-ui/icons'
 import InventoryIcon from '@mui/icons-material/Inventory'
-import StackedLineChartIcon from '@mui/icons-material/StackedLineChart'
 import TimelineIcon from '@mui/icons-material/Timeline'
 import { List, ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -27,11 +26,6 @@ export function DrawerListItem() {
   return (
     <List>
       <MyListItem icon={<Dashboard />} url="/dashboard" iconText="Dashboard" />
-      <MyListItem
-        icon={<StackedLineChartIcon />}
-        url="/dashboard/charts"
-        iconText="Gráficos"
-      />
       <MyListItem
         icon={<InventoryIcon />}
         url="/dashboard/products"

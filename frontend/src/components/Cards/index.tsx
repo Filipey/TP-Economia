@@ -1,4 +1,4 @@
-import { Inventory, StackedLineChart, Timeline } from '@mui/icons-material'
+import { Inventory, StackedLineChart } from '@mui/icons-material'
 import { Container, Grid } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -34,7 +34,7 @@ export function Cards() {
       style={{ paddingRight: '0px', width: '100%', paddingTop: '36px' }}
     >
       <Grid spacing={3} container>
-        <Grid item style={{ width: '33.3%' }}>
+        <Grid item style={{ width: '50%' }}>
           <Card
             title="Produtos"
             icon={<Inventory />}
@@ -44,7 +44,7 @@ export function Cards() {
             onClick={handleClickProducts}
           />
         </Grid>
-        <Grid item style={{ width: '33.3%' }}>
+        <Grid item style={{ width: '50%' }}>
           <Card
             title="Monitoramentos"
             icon={<StackedLineChart />}
@@ -52,16 +52,6 @@ export function Cards() {
             iconColor="gray"
             details="Monitorados"
             onClick={handleClickMonitoringProducts}
-          />
-        </Grid>
-        <Grid item style={{ width: '33.3%' }}>
-          <Card
-            title="Gráficos"
-            icon={<Timeline />}
-            value="5"
-            iconColor="orange"
-            details="Disponíveis"
-            onClick={handleClickCharts}
           />
         </Grid>
       </Grid>
