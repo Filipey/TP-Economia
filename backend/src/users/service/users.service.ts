@@ -69,7 +69,8 @@ export class UsersService {
   }
 
   async insertReport(dto: ReportDTO) {
-    const query = `INSERT INTO produto_monitorado(id_produto, cpf_gerente, mes, preco, vendas_realizadas) VALUES (${dto.idProduct}, '${dto.userCpf}', '${dto.month}', ${dto.value}, ${dto.sellings})`;
+    const query = `INSERT INTO produto_monitorado(id_produto, cpf_gerente, mes, preco, vendas_realizadas) VALUES (${dto.id_produto}, '${dto.cpf_gerente}', '${dto.mes}', ${dto.preco}, ${dto.vendas_realizadas})`;
+    console.log(dto);
 
     return await this.userRepository.query(query);
   }

@@ -18,7 +18,7 @@ interface SupplyDemandProps {
   product: ProductMonitoringResponseDTO
 }
 
-type SupplyDemandGraphic = {
+export type SupplyDemandGraphic = {
   inventory: number
   sales: number
   month: string
@@ -61,6 +61,7 @@ export function SupplyDemand({ product }: SupplyDemandProps) {
         value: extract.value
       }
     })
+
     setData(rawData)
   }, [reports])
 

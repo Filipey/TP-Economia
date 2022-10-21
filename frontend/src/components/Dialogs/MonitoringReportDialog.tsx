@@ -32,7 +32,7 @@ export function MonitoringReportDialog({
   const [sellings, setSellings] = useState(0)
   const [success, setSuccess] = useState(false)
 
-  const handleSubmit = () =>
+  const handleSubmit = () => {
     UserService.createNewReport({
       id_produto: product.id,
       cpf_gerente: user.cpf,
@@ -40,6 +40,7 @@ export function MonitoringReportDialog({
       vendas_realizadas: sellings,
       preco: value
     }).then(res => (res.status !== 404 ? setSuccess(true) : setSuccess(false)))
+  }
 
   return (
     <DialogTableContainer
