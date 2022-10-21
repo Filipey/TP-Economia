@@ -1,4 +1,7 @@
+import { Grid } from '@mui/material'
 import { ProductMonitoringResponseDTO } from '../../schemas/DTO'
+import { EmphasisMonth } from '../Charts/EmphasisMonth'
+import { PriceByMonth } from '../Charts/PriceByMonth'
 import { SupplyDemand } from '../Charts/SupplyDemand'
 import { DialogTableContainer } from './DialogContainer'
 
@@ -22,7 +25,15 @@ export function AnalyticsDialog({
       index={index}
       dialogTitle="Análises"
     >
-      <SupplyDemand product={product} />
+      <Grid item>
+        <SupplyDemand product={product} />
+      </Grid>
+      <Grid item sx={{ mt: 2 }}>
+        <PriceByMonth product={product} />
+      </Grid>
+      <Grid item sx={{ mt: 2 }}>
+        <EmphasisMonth product={product} />
+      </Grid>
     </DialogTableContainer>
   )
 }
