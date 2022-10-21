@@ -165,6 +165,7 @@ export function ProductsTable({ mode }: ProductsTableProps) {
             <Table size="medium">
               <TableHead>
                 <TableRow>
+                  <TableCell align="center">Id</TableCell>
                   <TableCell align="center">Nome</TableCell>
                   <TableCell align="center">Marca</TableCell>
                   <TableCell align="center">Valor</TableCell>
@@ -180,6 +181,7 @@ export function ProductsTable({ mode }: ProductsTableProps) {
                   .map((product, index) => (
                     <React.Fragment key={product.id}>
                       <TableRow>
+                        <TableCell align="center">{product.id}</TableCell>
                         <TableCell align="center">{product.nome}</TableCell>
                         <TableCell align="center">{product.marca}</TableCell>
                         <TableCell align="center">

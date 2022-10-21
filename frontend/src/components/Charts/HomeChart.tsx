@@ -50,7 +50,7 @@ export function HomeChart() {
         <ResponsiveContainer width="100%" aspect={3}>
           <BarChart data={products} width={500} height={300}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nome" />
+            <XAxis dataKey="marca" />
             <YAxis dataKey="valor" />
             <Tooltip cursor={{ fill: 'transparent' }} />
             <Bar

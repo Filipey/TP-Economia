@@ -7,6 +7,8 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { MonitoringDTO } from 'src/models/dtos/MonitoringDTO';
+import { ReportDTO } from 'src/models/dtos/ReportDTO';
 import { SignInUserDTO } from 'src/models/dtos/SignInUserDTO';
 import { SignUpUserDTO } from 'src/models/dtos/SignUpUserDTO';
 import { UsersService } from '../service/users.service';
@@ -49,5 +51,15 @@ export class UsersController {
   @Post('/login')
   login(@Body() dto: SignInUserDTO) {
     return this.userService.authUser(dto);
+  }
+
+  @Post('/monitoring/new')
+  createNewMonitoring(@Body() dto: MonitoringDTO) {
+    return this.userService.insertNewMonitoringUser(dto);
+  }
+
+  @Post('/monitoring/report/new')
+  createNewReport(@Body() dto: ReportDTO) {
+    return this.userService.insertReport(dto);
   }
 }

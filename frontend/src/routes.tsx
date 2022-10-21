@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@mui/material'
 import { Route, Routes } from 'react-router-dom'
 import { DashboardPage } from './pages/Dashboard'
+import { MonitoringPage } from './pages/Monitoring'
 import { ProductsPage } from './pages/Products'
 import { SignIn } from './pages/SignIn'
 import { SignUp } from './pages/SignUp'
@@ -14,6 +15,7 @@ export function Router() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/dashboard/products" element={<ProductsPage />} />
+        <Route path="/dashboard/monitoring" element={<MonitoringPage />} />
       </Routes>
     </ThemeProvider>
   )

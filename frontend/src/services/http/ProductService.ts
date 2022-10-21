@@ -1,4 +1,4 @@
-import { ProductDTO, ProductResponseDTO } from '../../schemas/DTO'
+import { ProductDTO, ProductResponseDTO, ReportDTO } from '../../schemas/DTO'
 import { Product } from '../../schemas/Models'
 import { api } from '../api'
 
@@ -16,6 +16,9 @@ const getProductsLike = (productName: { nome: string }, userCpf: string) =>
     productName
   )
 
+const getProductReports = (id: number, cpf: string) =>
+  api.get<ReportDTO[]>(`/products/id/${id}/reports/${cpf}`)
+
 const postNewProdut = (userCpf: string, product: ProductDTO) =>
   api.post(`/products/cpf/${userCpf}`, product)
 
@@ -29,6 +32,7 @@ export const ProductService = {
   getProductById,
   getUserLastProducts,
   getProductsChartHomeData,
+  getProductReports,
   getProductsLike,
   postNewProdut,
   updateProduct,

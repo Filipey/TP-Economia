@@ -28,7 +28,12 @@ export function DialogContainer({
   const theme = useTheme()
 
   return (
-    <Dialog open={state} scroll="body" fullWidth>
+    <Dialog
+      TransitionProps={{ unmountOnExit: true }}
+      open={state}
+      scroll="body"
+      fullWidth
+    >
       <DialogTitle color={theme.palette.grey[400]}>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>{dialogTitle}</Grid>
@@ -71,7 +76,12 @@ export function DialogTableContainer({
     setState(state.map((s, pos) => (pos === index ? false : s)))
 
   return (
-    <Dialog open={state[index]} scroll="body" fullWidth>
+    <Dialog
+      TransitionProps={{ unmountOnExit: true }}
+      open={state[index]}
+      scroll="body"
+      fullWidth
+    >
       <DialogTitle color={theme.palette.grey[400]}>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>{dialogTitle}</Grid>

@@ -26,12 +26,29 @@ export interface ProductResponseDTO {
 
 export interface ProductMonitoringResponseDTO {
   id: number
-  name: string
-  brand: string
-  value: number
-  inventory: number
+  nome: string
+  marca: string
+  valor: number
+  estoque: number
+  data_inicio: Date
+  data_termino: Date
+  expectativa_vendas: number
+  vendas_realizadas: number
+}
+
+export interface MonitoringDTO {
+  idProduct: number
+  userCpf: string
   initialDate: Date
-  finishDate: Date
-  sellingsGoal: number
-  actualSellings: number
+  finalDate: Date
+  sellingsXp: number
+  sellings: number
+}
+
+export interface ReportDTO {
+  id_produto: number
+  cpf_gerente: string
+  mes: string
+  preco: number
+  vendas_realizadas: number
 }

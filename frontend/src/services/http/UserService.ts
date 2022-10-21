@@ -1,6 +1,8 @@
 import {
+  MonitoringDTO,
   ProductMonitoringResponseDTO,
-  ProductResponseDTO
+  ProductResponseDTO,
+  ReportDTO
 } from '../../schemas/DTO'
 import { User } from '../../schemas/Models'
 import { api } from '../api'
@@ -19,10 +21,18 @@ const getUserMonitoringProducts = (cpf: string) =>
 const countUserMonitoringProducts = (cpf: string) =>
   api.get(`/users/monitoring/products/count/${cpf}`)
 
+const createNewMonitoring = (dto: MonitoringDTO) =>
+  api.post(`/users/monitoring/new`, dto)
+
+const createNewReport = (dto: ReportDTO) =>
+  api.post(`/users/monitoring/report/new`, dto)
+
 export const UserService = {
   getUserByCpf,
   getUserProducts,
   countUserProducts,
   getUserMonitoringProducts,
-  countUserMonitoringProducts
+  countUserMonitoringProducts,
+  createNewMonitoring,
+  createNewReport
 }

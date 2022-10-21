@@ -51,4 +51,10 @@ export class ProductsService {
 
     return products;
   }
+
+  async getProductsReports(productID: number, cpfOwner: string) {
+    const query = `SELECT * FROM produto_monitorado WHERE id_produto = ${productID} AND cpf_gerente = '${cpfOwner}'`;
+
+    return await this.productRepository.query(query);
+  }
 }

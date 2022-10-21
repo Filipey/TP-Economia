@@ -29,7 +29,7 @@ export function DrawerListItem() {
       <MyListItem icon={<Dashboard />} url="/dashboard" iconText="Dashboard" />
       <MyListItem
         icon={<StackedLineChartIcon />}
-        url="/charts"
+        url="/dashboard/charts"
         iconText="Gráficos"
       />
       <MyListItem
@@ -39,7 +39,7 @@ export function DrawerListItem() {
       />
       <MyListItem
         icon={<TimelineIcon />}
-        url="/monitoring"
+        url="/dashboard/monitoring"
         iconText="Monitorias"
       />
     </List>

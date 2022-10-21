@@ -1,7 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MonitoringDTO } from 'src/models/dtos/MonitoringDTO';
 import { ProductMonitoringResponseDTO } from 'src/models/dtos/ProductMonitoringResponseDTO';
+import { ReportDTO } from 'src/models/dtos/ReportDTO';
 import { SignInUserDTO } from 'src/models/dtos/SignInUserDTO';
 import { SignUpUserDTO } from 'src/models/dtos/SignUpUserDTO';
 import { Product } from 'src/models/entities/Product';
@@ -58,5 +60,17 @@ export class UsersService {
     const query = `SELECT COUNT(*) FROM produto p, monitora m WHERE (m.id_produto, cpf_gerente) = (p.id, '${cpf}')`;
     const [countMonitoringProducts] = await this.userRepository.query(query);
     return countMonitoringProducts;
+  }
+
+  async insertNewMonitoringUser(dto: MonitoringDTO) {
+    const query = `INSERT INTO monitora(id_produto, cpf_gerente, data_inicio, data_termino, expectativa_vendas, vendas_realizadas) VALUES(${dto.idProduct}, '${dto.userCpf}', '${dto.initialDate}', '${dto.finalDate}', ${dto.sellingsXp}, ${dto.sellings})`;
+
+    return await this.userRepository.query(query);
+  }
+
+  async insertReport(dto: ReportDTO) {
+    const query = `INSERT INTO produto_monitorado(id_produto, cpf_gerente, mes, preco, vendas_realizadas) VALUES (${dto.idProduct}, '${dto.userCpf}', '${dto.month}', ${dto.value}, ${dto.sellings})`;
+
+    return await this.userRepository.query(query);
   }
 }
